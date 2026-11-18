@@ -88,4 +88,10 @@ ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
 # Start server via Thruster by default, this can be overwritten at runtime
 EXPOSE 80
+
+# Health check against Rails' /up endpoint on the port the app listens on (HTTP_PORT, default 80).
+# Kamal and Podman read this to decide when a container is healthy.
+HEALTHCHECK --interval=5s --timeout=3s --start-period=10s --retries=3 \
+  CMD curl -fs "http://localhost:${HTTP_PORT:-80}/up" || exit 1
+
 CMD ["./bin/thrust", "./bin/rails", "server"]

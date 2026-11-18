@@ -8,6 +8,9 @@ git_source(:bc) { |repo| "https://github.com/basecamp/#{repo}" }
 
 gem "rails", github: "rails/rails", branch: "main"
 
+# Customized for webranger
+gem 'kamal_podman', git: 'https://github.com/phoozle/kamal_podman.git', branch: 'main'
+
 # Assets & front end
 gem "importmap-rails"
 gem "propshaft"
