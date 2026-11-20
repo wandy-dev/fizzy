@@ -59,6 +59,47 @@ class Account::JoinCodesControllerTest < ActionDispatch::IntegrationTest
     assert_response :no_content
   end
 
+  test "non-staff cannot view the invite link" do
+    logout_and_sign_in_as :jz
+
+    get account_join_code_path
+    assert_response :forbidden
+  end
+
+  test "non-staff cannot change the invite link" do
+    logout_and_sign_in_as :jz
+    code = Current.account.join_code.code
+
+    get edit_account_join_code_path
+    assert_response :forbidden
+
+    put account_join_code_path, params: { account_join_code: { usage_limit: 5 } }
+    assert_response :forbidden
+
+    delete account_join_code_path
+    assert_response :forbidden
+
+    assert_equal code, Current.account.join_code.reload.code
+  end
+
+  test "non-staff do not see the invite entry points" do
+    logout_and_sign_in_as :jz
+
+    get my_menu_path
+    assert_select "a[href=?]", account_join_code_path, count: 0
+
+    get account_settings_path
+    assert_select "a[href=?]", account_join_code_path, count: 0
+  end
+
+  test "staff see the invite entry points" do
+    get my_menu_path
+    assert_select "a[href=?]", account_join_code_path
+
+    get account_settings_path
+    assert_select "a[href=?]", account_join_code_path
+  end
+
   test "update requires admin" do
     logout_and_sign_in_as :david
 

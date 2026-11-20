@@ -3,6 +3,7 @@ class Account::JoinCodesController < ApplicationController
 
   disallow_oauth_grants
 
+  before_action :ensure_staff
   before_action :set_join_code
   before_action :ensure_admin, only: %i[ update destroy ]
 
