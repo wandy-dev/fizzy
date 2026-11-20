@@ -12,6 +12,21 @@ class My::MenusControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "show offers adding a board to staff" do
+    get my_menu_path
+
+    assert_select "a[href=?]", new_board_path
+  end
+
+  test "show hides adding a board from non-staff" do
+    logout_and_sign_in_as :jz
+
+    get my_menu_path
+
+    assert_response :success
+    assert_select "a[href=?]", new_board_path, count: 0
+  end
+
   test "etag invalidates when filters change" do
     get my_menu_path
     assert_response :success

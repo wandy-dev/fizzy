@@ -6,6 +6,15 @@ class Boards::EntropiesControllerTest < ActionDispatch::IntegrationTest
     @board = boards(:writebook)
   end
 
+  test "non-staff cannot change the auto-close period" do
+    logout_and_sign_in_as :jz
+
+    assert_no_changes -> { @board.entropy.reload.auto_postpone_period } do
+      put board_entropy_path(@board, format: :turbo_stream), params: { board: { auto_postpone_period_in_days: 90 } }
+    end
+    assert_response :forbidden
+  end
+
   test "update" do
     assert_no_difference -> { Current.account.entropy.reload.auto_postpone_period } do
       put board_entropy_path(@board, format: :turbo_stream), params: { board: { auto_postpone_period_in_days: 90 } }

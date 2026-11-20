@@ -12,8 +12,8 @@ class OauthConsentScreenTest < ActionDispatch::IntegrationTest
     get_consent_screen client
 
     assert_response :success
-    assert_select "title", text: /Connect this app to Fizzy/
-    assert_select "h1", text: "Connect this app to Fizzy?"
+    assert_select "title", text: /Connect this app to Watchtower/
+    assert_select "h1", text: "Connect this app to Watchtower?"
     assert_select ".oauth-client__name bdi", text: "Totally Fizzy"
     assert_select ".oauth-client__byline", text: /\AName set by the app at connector\.example\.com\z/
     assert_select ".oauth-client__warning", text: /\AWe haven’t checked this app\. Only authorize it if you trust that address\.\z/
@@ -26,7 +26,7 @@ class OauthConsentScreenTest < ActionDispatch::IntegrationTest
     get_consent_screen oauth_clients(:mcp_client)
 
     assert_response :success
-    assert_select "h1", text: "Connect this app to Fizzy?"
+    assert_select "h1", text: "Connect this app to Watchtower?"
     assert_select ".oauth-client__name bdi", text: "Test MCP Client"
     assert_select ".oauth-client__byline", text: /\AName set by an app on your device\z/
     assert_select ".oauth-client__warning", text: /\AWe haven’t checked this app\. Only authorize it if you started it\.\z/
@@ -36,7 +36,7 @@ class OauthConsentScreenTest < ActionDispatch::IntegrationTest
     get_consent_screen oauth_clients(:trusted_client)
 
     assert_response :success
-    assert_select "h1", text: "Connect this app to Fizzy?"
+    assert_select "h1", text: "Connect this app to Watchtower?"
     assert_select ".oauth-client__name bdi", text: "Trusted First-Party App"
     assert_select ".oauth-client__byline", text: "Made by 37signals"
     assert_select ".oauth-client__warning", count: 0

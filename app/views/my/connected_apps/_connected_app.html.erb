@@ -40,7 +40,7 @@
 
     <dialog class="dialog panel fill-white shadow gap flex-column txt-align-center" style="--panel-size: 44ch" data-dialog-target="dialog" aria-labelledby="<%= dom_id(client, :disconnect_title) %>">
       <h3 class="txt-large txt-bold margin-none" id="<%= dom_id(client, :disconnect_title) %>">Revoke access for <bdi><%= oauth_client_self_name(client) %></bdi>?</h3>
-      <p class="txt-medium margin-none">It loses its access to Fizzy right away. To use it again, reconnect it.</p>
+      <p class="txt-medium margin-none">It loses its access to Watchtower right away. To use it again, reconnect it.</p>
 
       <%= form_with url: my_connected_app_path(client), method: :delete, class: "flex flex-column" do |form| %>
         <% if webhooks.any? %>

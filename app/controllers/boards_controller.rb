@@ -7,6 +7,7 @@ class BoardsController < ApplicationController
 
   before_action :set_board, except: %i[ index new create ]
   before_action :ensure_permission_to_admin_board, only: %i[ update destroy ]
+  before_action :ensure_staff, only: %i[ new create edit update destroy ]
 
   def index
     set_page_and_extract_portion_from Current.user.boards.ordered_by_recently_accessed.includes(creator: :identity)

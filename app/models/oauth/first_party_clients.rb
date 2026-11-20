@@ -157,7 +157,7 @@ module Oauth::FirstPartyClients
       end
 
       def mcp_server(resource)
-        { name: "Fizzy MCP server", token_endpoint_auth_method: "client_secret_post", scopes: %w[ read write ], protected_resource: resource }
+        { name: "Watchtower MCP server", token_endpoint_auth_method: "client_secret_post", scopes: %w[ read write ], protected_resource: resource }
       end
   end
 end

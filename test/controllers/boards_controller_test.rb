@@ -36,6 +36,62 @@ class BoardsControllerTest < ActionDispatch::IntegrationTest
     assert_equal "Remodel Punch List", board.name
   end
 
+  test "non-staff cannot open the new board form" do
+    logout_and_sign_in_as :jz
+
+    get new_board_path
+    assert_response :forbidden
+  end
+
+  test "non-staff cannot create a board" do
+    logout_and_sign_in_as :jz
+
+    assert_no_difference -> { Board.count } do
+      post boards_path, params: { board: { name: "Remodel Punch List" } }
+    end
+
+    assert_response :forbidden
+  end
+
+  test "non-staff cannot open board settings" do
+    logout_and_sign_in_as :jz
+
+    get edit_board_path(boards(:writebook))
+    assert_response :forbidden
+  end
+
+  test "non-staff cannot update a board" do
+    logout_and_sign_in_as :jz
+
+    patch board_path(boards(:writebook)), params: { board: { name: "Hijacked" } }
+    assert_response :forbidden
+    assert_equal "Writebook", boards(:writebook).reload.name
+  end
+
+  test "non-staff cannot destroy a board" do
+    logout_and_sign_in_as :jz
+
+    assert_no_difference -> { Board.count } do
+      delete board_path(boards(:writebook))
+    end
+    assert_response :forbidden
+  end
+
+  test "non-staff does not see the board settings link" do
+    logout_and_sign_in_as :jz
+
+    get board_path(boards(:writebook))
+
+    assert_response :success
+    assert_select "a[href=?]", edit_board_path(boards(:writebook)), count: 0
+  end
+
+  test "staff see the board settings link" do
+    get board_path(boards(:writebook))
+
+    assert_select "a[href=?]", edit_board_path(boards(:writebook))
+  end
+
   test "create with an auto-postpone period" do
     assert_difference -> { Board.count }, +1 do
       assert_no_changes -> { entropies("37s_account").reload.auto_postpone_period } do
@@ -180,6 +236,7 @@ class BoardsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "disables select all/none buttons for non-privileged user" do
+    identities(:jz).update!(staff: true)
     logout_and_sign_in_as :jz
     assert_not users(:jz).can_administer_board?(boards(:writebook))
 
@@ -213,7 +270,8 @@ class BoardsControllerTest < ActionDispatch::IntegrationTest
       assert_response :success
       assert_select "input.switch__input[name='user_ids[]'][value='#{david.id}']:not([disabled])"
 
-      # unprivileged user
+      # unprivileged user (staff, so they can reach the settings page)
+      identities(:jz).update!(staff: true)
       logout_and_sign_in_as :jz
       assert_not users(:jz).can_administer_board?(board)
 

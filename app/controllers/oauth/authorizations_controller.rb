@@ -7,7 +7,7 @@ class Oauth::AuthorizationsController < Oauth::BaseController
   RETURN_URL_MAXIMUM_LENGTH = 2000
   # Read to find the client and the redirect target, so refused before either.
   LOOKUP_PARAMETERS = %w[ client_id redirect_uri ]
-  UNKNOWN_CLIENT_MESSAGE = "Fizzy doesn't recognize this app. It may have been removed since you started. Start again from the app."
+  UNKNOWN_CLIENT_MESSAGE = "Watchtower doesn't recognize this app. It may have been removed since you started. Start again from the app."
 
   # The sign-in pages' layout: the Fizzy logo heads every page, with no account
   # menu, since authorizing happens outside any one account.
@@ -107,7 +107,7 @@ class Oauth::AuthorizationsController < Oauth::BaseController
       unless Oauth::Availability.admits?(Current.identity)
         respond_to do |format|
           format.html { render :preview, status: :forbidden }
-          format.json { render_oauth_error "access_denied", "Connecting apps to Fizzy is in preview for now", status: :forbidden }
+          format.json { render_oauth_error "access_denied", "Connecting apps to Watchtower is in preview for now", status: :forbidden }
         end
       end
     end
@@ -194,7 +194,7 @@ class Oauth::AuthorizationsController < Oauth::BaseController
     def validate_redirect_uri
       unless performed? || @client.allows_redirect?(params[:redirect_uri])
         redirect_with_error "invalid_request", "Invalid redirect_uri",
-          message: "The app asked to send you back to an address it never registered with Fizzy."
+          message: "The app asked to send you back to an address it never registered with Watchtower."
       end
     end
 
@@ -261,7 +261,7 @@ class Oauth::AuthorizationsController < Oauth::BaseController
 
         if @accounts.empty?
           redirect_with_error "access_denied", "You have no account to connect",
-            message: "You aren't in any Fizzy account this app could connect to."
+            message: "You aren't in any Watchtower account this app could connect to."
         end
       end
     end

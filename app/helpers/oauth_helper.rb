@@ -9,7 +9,7 @@ module OauthHelper
   CONNECTED_APP_GROUPS = {
     web: "Apps and assistants on the web",
     local: "Apps on your devices",
-    fizzy: "Fizzy apps"
+    fizzy: "Watchtower apps"
   }
 
   ACCESS_LEVELS = {
@@ -28,14 +28,14 @@ module OauthHelper
   # its own. The code and its developer description are shown beneath, so
   # whoever made the app can tell exactly which check refused it.
   OAUTH_ERROR_MESSAGES = {
-    "invalid_request" => "The app sent a request to connect that Fizzy can't accept.",
-    "unauthorized_client" => "This app isn't set up to connect to Fizzy this way.",
-    "invalid_client_metadata" => "Fizzy couldn't read the details this app publishes about itself.",
-    "temporarily_unavailable" => "Fizzy is too busy to connect this app right now. Wait a moment, then try again.",
-    "unsupported_response_type" => "The app asked to connect in a way Fizzy doesn't support.",
+    "invalid_request" => "The app sent a request to connect that Watchtower can't accept.",
+    "unauthorized_client" => "This app isn't set up to connect to Watchtower this way.",
+    "invalid_client_metadata" => "Watchtower couldn't read the details this app publishes about itself.",
+    "temporarily_unavailable" => "Watchtower is too busy to connect this app right now. Wait a moment, then try again.",
+    "unsupported_response_type" => "The app asked to connect in a way Watchtower doesn't support.",
     "invalid_scope" => "The app asked for more access than it's allowed.",
-    "invalid_target" => "The app asked to connect to something Fizzy doesn't recognize.",
-    "access_denied" => "This app can't be connected to your Fizzy account.",
+    "invalid_target" => "The app asked to connect to something Watchtower doesn't recognize.",
+    "access_denied" => "This app can't be connected to your Watchtower account.",
     "slow_down" => "There have been too many attempts. Wait a minute, then try again."
   }
 

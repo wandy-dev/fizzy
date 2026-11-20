@@ -239,13 +239,13 @@ class Oauth::TokensController < Oauth::BaseController
 
     def require_admitted_identity
       unless Oauth::Availability.admits?(@identity)
-        oauth_error "invalid_grant", "Connecting apps to Fizzy is in preview for now"
+        oauth_error "invalid_grant", "Connecting apps to Watchtower is in preview for now"
       end
     end
 
     def require_admitted_grant_owner
       unless @access_token.personal? || Oauth::Availability.admits?(@access_token.identity)
-        oauth_error "invalid_grant", "Connecting apps to Fizzy is in preview for now"
+        oauth_error "invalid_grant", "Connecting apps to Watchtower is in preview for now"
       end
     end
 

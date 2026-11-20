@@ -39,7 +39,7 @@ class OauthErrorPagesTest < ActionDispatch::IntegrationTest
   test "a person reads the plain words, never the developer's description" do
     get_authorization redirect_uri: "http://evil.example.com/steal"
 
-    assert_error_page "invalid_request", "The app asked to send you back to an address it never registered with Fizzy."
+    assert_error_page "invalid_request", "The app asked to send you back to an address it never registered with Watchtower."
     assert_no_match "Invalid redirect_uri", response.body
   end
 

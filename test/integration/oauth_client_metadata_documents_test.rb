@@ -30,7 +30,7 @@ class OauthClientMetadataDocumentsTest < ActionDispatch::IntegrationTest
     untenanted { get new_oauth_authorization_path, params: authorization }
 
     assert_response :success
-    assert_select "h1", text: "Connect this app to Fizzy?"
+    assert_select "h1", text: "Connect this app to Watchtower?"
     assert_select ".oauth-client__name bdi", text: "Claude"
     assert_select ".oauth-client__byline", text: "Name set by the app at claude.ai"
     assert_select ".oauth-client__warning", count: 0

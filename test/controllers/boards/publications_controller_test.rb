@@ -6,6 +6,19 @@ class Boards::PublicationsControllerTest < ActionDispatch::IntegrationTest
     @board = boards(:writebook)
   end
 
+  test "non-staff cannot publish or unpublish a board" do
+    logout_and_sign_in_as :jz
+
+    post board_publication_path(@board, format: :turbo_stream)
+    assert_response :forbidden
+    assert_not @board.reload.published?
+
+    @board.publish
+    delete board_publication_path(@board, format: :turbo_stream)
+    assert_response :forbidden
+    assert @board.reload.published?
+  end
+
   test "publish a board" do
     assert_not @board.published?
 

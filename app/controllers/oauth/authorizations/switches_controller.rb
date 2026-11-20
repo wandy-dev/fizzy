@@ -38,7 +38,7 @@ class Oauth::Authorizations::SwitchesController < Oauth::AuthorizationsControlle
     def require_browser_session
       unless Current.session
         render_error "access_denied", "Switching requires a browser session", status: :forbidden,
-          message: "Switching to someone else works only in a browser where you've signed in to Fizzy."
+          message: "Switching to someone else works only in a browser where you've signed in to Watchtower."
       end
     end
 

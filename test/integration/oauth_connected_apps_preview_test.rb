@@ -26,7 +26,7 @@ class OauthConnectedAppsPreviewTest < ActionDispatch::IntegrationTest
       sign_in_as :jz
       get_consent_screen
       assert_response :forbidden
-      assert_match "Connecting apps to Fizzy is in preview", response.body
+      assert_match "Connecting apps to Watchtower is in preview", response.body
 
       post_consent
       assert_response :forbidden
@@ -87,7 +87,7 @@ class OauthConnectedAppsPreviewTest < ActionDispatch::IntegrationTest
 
       assert_response :forbidden
       assert_equal "access_denied", response.parsed_body["error"]
-      assert_equal "Connecting apps to Fizzy is in preview for now", response.parsed_body["error_description"]
+      assert_equal "Connecting apps to Watchtower is in preview for now", response.parsed_body["error_description"]
     end
   end
 

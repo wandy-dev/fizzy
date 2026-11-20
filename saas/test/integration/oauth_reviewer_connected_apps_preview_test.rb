@@ -60,7 +60,7 @@ class OauthReviewerConnectedAppsPreviewTest < ActionDispatch::IntegrationTest
       sign_in_as :mike
       get_consent_screen
       assert_response :forbidden
-      assert_match "Connecting apps to Fizzy is in preview", response.body
+      assert_match "Connecting apps to Watchtower is in preview", response.body
     end
   end
 
