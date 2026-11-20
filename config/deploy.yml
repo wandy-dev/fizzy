@@ -8,7 +8,7 @@ image: fizzy
 # Where to deploy fizzy
 servers:
   web:
-    - ctb-tickets.webranger.consulting  # Set your server name here
+    - watchtower.webranger.consulting  # Set your server name here
 
 # How you connect to your server
 ssh:
@@ -17,7 +17,7 @@ ssh:
 # Automatic SSL
 proxy:
   ssl: true                # Set this to false if you *don't* want SSL
-  host: ctb-tickets.webranger.consulting  # Set your server name here to use automatic SSL
+  host: watchtower.webranger.consulting  # Set your server name here to use automatic SSL
   app_port: 3000
 
 # Your application configuration (secrets come from .kamal/secrets).
@@ -29,7 +29,7 @@ env:
     - SMTP_USERNAME
     - SMTP_PASSWORD
   clear:
-    BASE_URL: https://ctb-tickets.webranger.consulting # The public URL of your Fizzy instance
+    BASE_URL: https://watchtower.webranger.consulting # The public URL of your Fizzy instance
     MAILER_FROM_ADDRESS: support@webranger.consulting # The email "from" address that Fizzy sends email from
     SMTP_ADDRESS: mail.purelymail.com # The SMTP server you'll use to send email
     MULTI_TENANT: false # Set to true to allow multiple accounts to sign up
